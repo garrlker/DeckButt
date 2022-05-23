@@ -1,0 +1,13 @@
+{
+  "orders": [
+    { "model": "64", "region": "US", "reserveTime": "1626468043" },
+    { "model": "256", "region": "US", "reserveTime": "1626464321" },
+    { "model": "512", "region": "US", "reserveTime": "1626456690" },
+    { "model": "64", "region": "UK", "reserveTime": "1626551846" },
+    { "model": "256", "region": "UK", "reserveTime": "1626458732" },
+    { "model": "512", "region": "UK", "reserveTime": "1626456126" },
+    { "model": "64", "region": "EU", "reserveTime": "1626680380" },
+    { "model": "256", "region": "EU", "reserveTime": "1626556889" },
+    { "model": "512", "region": "EU", "reserveTime": "1626547627" }
+  ]
+}
