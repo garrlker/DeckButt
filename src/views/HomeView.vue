@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, defineEmits, ref } from 'vue';
+import landingPageBackground from '../assets/steamdeckrender1.jpeg'
 
 const emit = defineEmits(['checkDeckProgress'])
 
@@ -23,7 +24,7 @@ function checkDeckProgress() {
 
 <template>
   <div class="container min-w-full min-h-lg bg-cover bg-center grid place-items-center"
-    style="background-image: url('/src/assets/steamdeckrender1.jpeg')">
+    :style="{'background-image': 'url(' + landingPageBackground + ')'}">
     <h2 class="font-sans text-7xl text-center text-slate-50">
       Where's muh deck
     </h2>
