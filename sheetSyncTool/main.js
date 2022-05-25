@@ -28,7 +28,7 @@ function processRows(rows) {
   }
 
   // First row of data is counted as a header, Manually add it into the array here
-  rows.push({ _rawData: rows[0]._sheet.headerValues });
+  rows.unshift({ _rawData: rows[0]._sheet.headerValues });
 
   // Convert from array of GoogleSheet object to 3-indice array or [{model}, {region}, {latestReserveTime}]
   const arrOfRows = rows.map(row => {
