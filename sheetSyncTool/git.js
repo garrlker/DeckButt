@@ -1,10 +1,6 @@
-// var shell = require('shelljs');
 import simpleGit from 'simple-git';
-
-// if (!shell.which('git')) {
-//   shell.echo('Sorry, this script requires git');
-//   shell.exit(1);
-// }
+import dotenv from "dotenv";
+dotenv.config();
 
 const GIT_ENABLED = process.env.ENABLE_GIT === "true";
 
@@ -12,6 +8,7 @@ const git = simpleGit();
 
 async function updateBranch() {
   if (!GIT_ENABLED) {
+    console.log("GIT DISABLED");
     return;
   }
 
@@ -23,7 +20,7 @@ async function updateBranch() {
   await git.pull();
   await git.add('./*');
   await git.commit(`Sync up ordertracking file with google sheets on ${Date.now()}`);
-  await git.push('origin', 'taskUpdateOrders');
+  await git.push('origin', 'task-update-ordertracking');
 }
 
 export default updateBranch;
