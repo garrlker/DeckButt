@@ -1,26 +1,32 @@
-import simpleGit from 'simple-git';
-import dotenv from "dotenv";
-dotenv.config();
+import simpleGit from 'simple-git'
+import dotenv from 'dotenv'
+import createDebug from 'debug'
+dotenv.config()
 
-const GIT_ENABLED = process.env.ENABLE_GIT === "true";
+const debug = createDebug('synctool:git')
+const logError = createDebug('synctool:git:error')
 
-const git = simpleGit();
+const GIT_ENABLED = process.env.ENABLE_GIT === 'true'
+
+const git = simpleGit()
 
 async function updateBranch() {
   if (!GIT_ENABLED) {
-    console.log("GIT DISABLED");
-    return;
+    debug('GIT DISABLED')
+    return
   }
 
-  const status = await git.status();
-  if(status.current !== "task-update-ordertracking"){
-    console.error("Wrong Branch!");
-    return;
+  const status = await git.status()
+  if (status.current !== 'task-update-ordertracking') {
+    logError('Wrong Branch!')
+    return
   }
-  await git.pull();
-  await git.add('./*');
-  await git.commit(`Sync up ordertracking file with google sheets on ${Date.now()}`);
-  await git.push('origin', 'task-update-ordertracking');
+  await git.pull()
+  await git.add('./*')
+  await git.commit(
+    `Sync up ordertracking file with google sheets on ${Date.now()}`,
+  )
+  await git.push('origin', 'task-update-ordertracking')
 }
 
-export default updateBranch;
+export default updateBranch

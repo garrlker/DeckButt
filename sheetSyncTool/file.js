@@ -1,49 +1,47 @@
-import fs from 'fs-extra';
-const pathToOrderTracking = new URL('../public/ordertracking.json', import.meta.url).pathname
-const pathToOrderHistory = new URL('../public/orderhistory.json', import.meta.url).pathname
+import fs from 'fs-extra'
+import createDebug from 'debug'
+const pathToOrderTracking = new URL(
+  '../public/ordertracking.json',
+  import.meta.url,
+).pathname
+const pathToOrderHistory = new URL(
+  '../public/orderhistory.json',
+  import.meta.url,
+).pathname
+
+const debug = createDebug('synctool:file')
+const logError = createDebug('synctool:file:error')
 
 async function getOrderTracking() {
   try {
-    return await fs.readJson(pathToOrderTracking);
-  } catch (err) {
-    console.error(err)
+    return await fs.readJson(pathToOrderTracking)
+  }
+  catch (err) {
+    logError(err)
   }
 }
 async function updateOrderTracking(orderTracking) {
   try {
-    console.log("Updating ordertracking.json");
-    await fs.writeJson(pathToOrderTracking, orderTracking);
-    console.log('Success!')
-  } catch (err) {
-    console.error(err);
+    debug('Updating ordertracking.json')
+    await fs.writeJson(pathToOrderTracking, orderTracking)
+    debug('Success!')
+  }
+  catch (err) {
+    logError(err)
   }
 }
 async function updateOrderHistory(newOrder) {
   try {
-    const orderHistory = await fs.readJson(pathToOrderHistory);
-    newOrder.timestamp = Date.now();
-    orderHistory.orders.push(newOrder);
-    console.log("Updating orderhistory.json");
-    await fs.writeJson(pathToOrderHistory, orderHistory);
-    console.log('Success!')
-  } catch (err) {
-    console.error(err);
+    const orderHistory = await fs.readJson(pathToOrderHistory)
+    newOrder.timestamp = Date.now()
+    orderHistory.orders.push(newOrder)
+    debug('Updating orderhistory.json')
+    await fs.writeJson(pathToOrderHistory, orderHistory)
+    debug('Success!')
+  }
+  catch (err) {
+    logError(err)
   }
 }
 
-// Testing for dev purposes
-// async function testFunctions(){
-//   console.log("Start");
-//   let currentOrderTracking = await getOrderTracking();
-//   console.log(currentOrderTracking);
-//   await updateOrderTracking(currentOrderTracking);
-//   await updateOrderHistory(currentOrderTracking);
-// }
-
-// testFunctions();
-
-export {
-  getOrderTracking,
-  updateOrderTracking,
-  updateOrderHistory
-}
+export { getOrderTracking, updateOrderTracking, updateOrderHistory }
