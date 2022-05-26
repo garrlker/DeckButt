@@ -6,6 +6,8 @@ import simpleGit from 'simple-git';
 //   shell.exit(1);
 // }
 
+const GIT_ENABLED = process.env.ENABLE_GIT === "true";
+
 const git = simpleGit();
 
 async function updateBranch() {
@@ -14,7 +16,7 @@ async function updateBranch() {
   }
 
   const status = await git.status();
-  if(status.current !== "taskUpdateOrders"){
+  if(status.current !== "task-update-ordertracking"){
     console.error("Wrong Branch!");
     return;
   }

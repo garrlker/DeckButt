@@ -11,8 +11,6 @@ import deepEql from "deep-eql";
 
 dotenv.config();
 
-const GIT_ENABLED = process.env.ENABLE_GIT === "true";
-
 async function main() {
   // Fetch all sources
   let thisRepoOrders = await getOrderTracking();
