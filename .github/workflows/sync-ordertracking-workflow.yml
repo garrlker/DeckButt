@@ -17,4 +17,4 @@ jobs:
         head: task-update-ordertracking
         base: main
         title: "Update Ordertracking!"
-        labels: "auto-merge"
+        labels: "automerge"
