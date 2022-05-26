@@ -12,6 +12,7 @@ const git = simpleGit();
 
 async function updateBranch() {
   if (!GIT_ENABLED) {
+    console.log("GIT DISABLED");
     return;
   }
 
