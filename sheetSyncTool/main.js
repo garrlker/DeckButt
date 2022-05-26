@@ -11,6 +11,8 @@ import deepEql from "deep-eql";
 
 dotenv.config();
 
+const waitTime = 120000; // 2 Minutes
+
 async function main() {
   // Fetch all sources
   let thisRepoOrders = await getOrderTracking();
@@ -25,16 +27,14 @@ async function main() {
   // Everything is good, restart
   if (siteAndSheetEqual && repoAndSheetEqual) {
     console.log("Site and Repo are up to date, restarting");
-    // setTimeout(main, 300,000);
-    setTimeout(main, 30000);
+    setTimeout(main, waitTime);
     return;
   }
 
   // We've already put in an MR, waiting for merge so restart
   if (!siteAndSheetEqual && repoAndSheetEqual){
     console.log("Repo is up to date, must be waiting on MR approval, restarting");
-    // setTimeout(main, 300,000);
-    setTimeout(main, 30000);
+    setTimeout(main, waitTime);
     return;
   }
 
@@ -45,8 +45,7 @@ async function main() {
     await updateOrderHistory(spreadsheetOrders);
     await updateBranch();
     console.log("Done!");
-    // setTimeout(main, 300,000);
-    setTimeout(main, 30000);
+    setTimeout(main, waitTime);
   }
 }
 main();
