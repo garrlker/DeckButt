@@ -24,6 +24,9 @@ async function main() {
   const repoAndSheetEqual = deepEql(spreadsheetOrders, thisRepoOrders);
   // const siteAndRepoEqual = deepEql(thisRepoOrders, currentSiteOrders); // Basically useless
 
+  console.log("site and sheet are equal ", siteAndSheetEqual);
+  console.log("repo and sheet are equal ", repoAndSheetEqual);
+
   // Everything is good, restart
   if (siteAndSheetEqual && repoAndSheetEqual) {
     console.log("Site and Repo are up to date, restarting");
