@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, defineEmits, ref } from 'vue'
 import landingPageBackground from '../assets/steamdeckrender1.jpeg'
 
 const emit = defineEmits(['checkDeckProgress'])

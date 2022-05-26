@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { RouterView } from 'vue-router'
-import { useFetch } from '@vueuse/core'
-
 const currentDeckShipmentProgress = ref()
 const userDeckProgress = ref()
 onMounted(async () => {
