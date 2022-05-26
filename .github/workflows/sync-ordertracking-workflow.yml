@@ -11,6 +11,6 @@ jobs:
       uses: thomaseizinger/create-pull-request@master
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        head: ${{ github.ref }}
-        base: task-update-ordertracking
+        head: task-update-ordertracking
+        base: main
         title: "Update Ordertracking!"
