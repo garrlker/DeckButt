@@ -1,6 +1,7 @@
 {
   "name": "deckbutt",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -10,7 +11,7 @@
     "test:e2e:ci": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress run'",
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "sync": "node sheetSyncTool/main.js"
+    "syncBot": "node sheetSyncTool/main.js"
   },
   "dependencies": {
     "@vueuse/core": "^8.5.0",
@@ -32,9 +33,11 @@
     "eslint": "^8.5.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-vue": "^8.2.0",
+    "fs-extra": "^10.1.0",
     "google-spreadsheet": "^3.3.0",
     "jsdom": "^19.0.0",
     "prettier": "^2.5.1",
+    "simple-git": "^3.7.1",
     "start-server-and-test": "^1.14.0",
     "typescript": "~4.6.3",
     "vite": "^2.9.5",

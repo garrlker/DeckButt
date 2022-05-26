@@ -1,50 +1,54 @@
-const { GoogleSpreadsheet } = require('google-spreadsheet');
-require('dotenv').config();
+import {
+  getOrderTracking,
+  updateOrderTracking,
+  updateOrderHistory,
+} from "./file.js";
+import updateBranch from "./git.js";
+import openSpreadsheetAndProcessData from "./sheet.js";
+import fetchCurrentOrderTracking from "./site.js";
+import dotenv from "dotenv";
+import deepEql from "deep-eql";
 
-// Async function to wrap all the async google sheet calls
-async function readInfo() {
-  await doc.useServiceAccountAuth({
-    client_email: process.env.GOOGLE_API_EMAIL,
-    private_key: process.env.PRIVATE_KEY,
-  });
-  await doc.loadInfo(); // loads document properties and worksheets
+dotenv.config();
 
-  if (doc.title !== "Fammy's Steam Deck order tracking") {
-    console.error(`Somethings changed: ${doc.title}`);
+const GIT_ENABLED = process.env.ENABLE_GIT === "true";
+
+async function main() {
+  // Fetch all sources
+  let thisRepoOrders = await getOrderTracking();
+  let spreadsheetOrders = await openSpreadsheetAndProcessData();
+  let currentSiteOrders = await fetchCurrentOrderTracking();
+
+  // Compare them
+  const siteAndSheetEqual = deepEql(spreadsheetOrders, currentSiteOrders);
+  const repoAndSheetEqual = deepEql(spreadsheetOrders, thisRepoOrders);
+  // const siteAndRepoEqual = deepEql(thisRepoOrders, currentSiteOrders); // Basically useless
+
+  // Everything is good, restart
+  if (siteAndSheetEqual && repoAndSheetEqual) {
+    console.log("Site and Repo are up to date, restarting");
+    // setTimeout(main, 300,000);
+    setTimeout(main, 30000);
     return;
   }
 
-  const deckbotSheet = doc.sheetsByTitle['deckbot'];
-  const rows = await deckbotSheet.getRows();
-  console.table(processRows(rows));
-}
-
-// Reduces the rows into a json object the deckbutt site expects
-function processRows(rows) {
-  // First, fail if the header has changed
-  if (rows[0]._sheet.headerValues.length !== 3) {
-    console.error(`Somethings fucked`);
+  // We've already put in an MR, waiting for merge so restart
+  if (!siteAndSheetEqual && repoAndSheetEqual){
+    console.log("Repo is up to date, must be waiting on MR approval, restarting");
+    // setTimeout(main, 300,000);
+    setTimeout(main, 30000);
     return;
   }
 
-  // First row of data is counted as a header, Manually add it into the array here
-  rows.unshift({ _rawData: rows[0]._sheet.headerValues });
-
-  // Convert from array of GoogleSheet object to 3-indice array or [{model}, {region}, {latestReserveTime}]
-  const arrOfRows = rows.map(row => {
-    return row._rawData;
-  });
-
-  // Reduce array into an object mapping {Regions + Model} to the full row
-  return arrOfRows.reduce((outputJson, row) => {
-    outputJson[row[1] + row[0] + 'GB'] = {
-      model: row[0],
-      region: row[1],
-      reserveTime: row[2]
-    }
-    return outputJson;
-  }, {})
+  // We are out of date, update the repo and site
+  if (!siteAndSheetEqual && !repoAndSheetEqual) {
+    console.log("Site and Repo are out of date, updating")
+    await updateOrderTracking(spreadsheetOrders);
+    await updateOrderHistory(spreadsheetOrders);
+    await updateBranch();
+    console.log("Done!");
+    // setTimeout(main, 300,000);
+    setTimeout(main, 30000);
+  }
 }
-
-const doc = new GoogleSpreadsheet('1ZaKncig9fce7K0sr1f-E2_sgLH1HuKQ-q3k7clPMOCs');
-readInfo();
+main();
