@@ -3,6 +3,8 @@ on:
   pull_request:
     types:
       - opened
+    branches:
+      - task-update-ordertracking
 jobs:
   automerge:
     runs-on: ubuntu-latest
