@@ -1,11 +1,1 @@
-{
-  "US64GB": { "model": "64", "region": "US", "reserveTime": "1626468043" },
-  "US256GB": { "model": "256", "region": "US", "reserveTime": "1626464321" },
-  "US512GB": { "model": "512", "region": "US", "reserveTime": "1626456690" },
-  "UK64GB": { "model": "64", "region": "UK", "reserveTime": "1626551846" },
-  "UK256GB": { "model": "256", "region": "UK", "reserveTime": "1626458732" },
-  "UK512GB": { "model": "512", "region": "UK", "reserveTime": "1626456126" },
-  "EU64GB": { "model": "64", "region": "EU", "reserveTime": "1626680380" },
-  "EU256GB": { "model": "256", "region": "EU", "reserveTime": "1626556889" },
-  "EU512GB": { "model": "512", "region": "EU", "reserveTime": "1626547627" }
-}
+{"US64GB":{"model":"64","region":"US","reserveTime":"1626468276"},"US256GB":{"model":"256","region":"US","reserveTime":"1626464336"},"US512GB":{"model":"512","region":"US","reserveTime":"1626456704"},"UK64GB":{"model":"64","region":"UK","reserveTime":"1626552001"},"UK256GB":{"model":"256","region":"UK","reserveTime":"1626458732"},"UK512GB":{"model":"512","region":"UK","reserveTime":"1626456140"},"EU64GB":{"model":"64","region":"EU","reserveTime":"1626687162"},"EU256GB":{"model":"256","region":"EU","reserveTime":"1626559463"},"EU512GB":{"model":"512","region":"EU","reserveTime":"1626548367"}}
