@@ -47,5 +47,8 @@ async function main() {
     console.log("Done!");
     setTimeout(main, waitTime);
   }
+
+  // Catch-all
+  setTimeout(main, waitTime);
 }
 main();
