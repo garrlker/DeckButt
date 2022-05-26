@@ -20,7 +20,7 @@ async function updateBranch() {
   await git.pull();
   await git.add('./*');
   await git.commit(`Sync up ordertracking file with google sheets on ${Date.now()}`);
-  await git.push('origin', 'taskUpdateOrders');
+  await git.push('origin', 'task-update-ordertracking');
 }
 
 export default updateBranch;
