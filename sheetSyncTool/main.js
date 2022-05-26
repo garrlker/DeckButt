@@ -6,10 +6,7 @@ import {
 import updateBranch from "./git.js";
 import openSpreadsheetAndProcessData from "./sheet.js";
 import fetchCurrentOrderTracking from "./site.js";
-import dotenv from "dotenv";
 import deepEql from "deep-eql";
-
-dotenv.config();
 
 const waitTime = 120000; // 2 Minutes
 
