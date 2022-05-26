@@ -1,10 +1,6 @@
-// var shell = require('shelljs');
 import simpleGit from 'simple-git';
-
-// if (!shell.which('git')) {
-//   shell.echo('Sorry, this script requires git');
-//   shell.exit(1);
-// }
+import dotenv from "dotenv";
+dotenv.config();
 
 const GIT_ENABLED = process.env.ENABLE_GIT === "true";
 
