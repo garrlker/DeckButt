@@ -1,5 +1,8 @@
 name: "Create PR For OrderTracking Updates"
-on: push
+on:
+  push:
+    branches:
+      - task-update-ordertracking
 
 jobs:
   create-pr-on-push:
