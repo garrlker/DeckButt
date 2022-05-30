@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { useStorage } from '@vueuse/core'
 import landingPageBackground from '../assets/steamdeckrender1.jpeg'
 
 const emit = defineEmits(['checkDeckProgress'])
 
-const model = ref('64GB')
-const region = ref('US')
-const reserveTime = ref()
+const model = useStorage('model', '64GB')
+const region = useStorage('region', 'US')
+const reserveTime = useStorage('rtReserve', '')
 
 const deck = computed(() => {
   return region.value + model.value
@@ -92,8 +93,8 @@ function checkDeckProgress() {
             id="reserve-time"
             v-model="reserveTime"
             class="px-2 w-full h-14 text-gray-900 dark:text-white dark:placeholder:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500"
-            type="number"
-            placeholder="1626459367"
+            type="text"
+            placeholder="rtReserve Value"
           >
         </div>
         <button
