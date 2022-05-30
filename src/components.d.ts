@@ -9,6 +9,8 @@ declare module '@vue/runtime-core' {
     IconDocumentation: typeof import('./components/icons/IconDocumentation.vue')['default']
     IconEcosystem: typeof import('./components/icons/IconEcosystem.vue')['default']
     IconSupport: typeof import('./components/icons/IconSupport.vue')['default']
+    LandingLayout: typeof import('./components/LandingLayout.vue')['default']
+    ProgressForm: typeof import('./components/ProgressForm.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
