@@ -16,7 +16,7 @@ export default defineConfig({
       imports: [
         'vue',
         'vue-router',
-        '@vueuse/core'
+        '@vueuse/core',
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: [
@@ -29,7 +29,7 @@ export default defineConfig({
       extensions: ['vue'],
       include: [/\.vue$/, /\.vue\?vue/],
       dts: 'src/components.d.ts',
-    })
+    }),
   ],
   resolve: {
     alias: {
