@@ -28,6 +28,7 @@ async function main() {
    
   if(thisRepoOrdersError || spreadsheetOrdersError || currentSiteOrdersError){
     debug("oof, we had an error somewhere. Restarting to try again")
+    setTimeout(main, waitTime)
     return;
   }
 
