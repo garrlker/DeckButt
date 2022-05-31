@@ -16,9 +16,9 @@ const waitTime = 120000 // 2 minute polling interval
 
 async function main() {
   // Fetch all sources
-  const [thisRepoOrders, thisRepoOrdersError] = handlePromise(getOrderTracking());
-  const [spreadsheetOrders, spreadsheetOrdersError] = handlePromise(openSpreadsheetAndProcessData());
-  const [currentSiteOrders, currentSiteOrdersError] = handlePromise(fetchCurrentOrderTracking());
+  const [thisRepoOrders, thisRepoOrdersError] = await handlePromise(getOrderTracking());
+  const [spreadsheetOrders, spreadsheetOrdersError] = await handlePromise(openSpreadsheetAndProcessData());
+  const [currentSiteOrders, currentSiteOrdersError] = await handlePromise(fetchCurrentOrderTracking());
 
   /**
    * If we have an error, die and start over
