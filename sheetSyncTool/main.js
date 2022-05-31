@@ -10,14 +10,26 @@ import openSpreadsheetAndProcessData from './sheet.js'
 import fetchCurrentOrderTracking from './site.js'
 
 const debug = createDebug('synctool:main')
+const logError = createDebug('synctool:main:error')
 
-const waitTime = 120000 // 2 Minutes
+const waitTime = 120000 // 2 minute polling interval
 
 async function main() {
   // Fetch all sources
-  const thisRepoOrders = await getOrderTracking()
-  const spreadsheetOrders = await openSpreadsheetAndProcessData()
-  const currentSiteOrders = await fetchCurrentOrderTracking()
+  const [thisRepoOrders, thisRepoOrdersError] = handlePromise(getOrderTracking());
+  const [spreadsheetOrders, spreadsheetOrdersError] = handlePromise(openSpreadsheetAndProcessData());
+  const [currentSiteOrders, currentSiteOrdersError] = handlePromise(fetchCurrentOrderTracking());
+
+  /**
+   * If we have an error, die and start over
+   *    So far an error has only happened because of random internet issues
+   *    This should handle 99% of those issues
+   */
+   
+  if(thisRepoOrdersError || spreadsheetOrdersError || currentSiteOrdersError){
+    debug("oof, we had an error somewhere. Restarting to try again")
+    return;
+  }
 
   // Compare them
   const siteAndSheetEqual = deepEql(spreadsheetOrders, currentSiteOrders)
@@ -56,4 +68,16 @@ async function main() {
   // Catch-all
   setTimeout(main, waitTime)
 }
+
+// Ty Fireship.io!
+async function handlePromise(promise){
+  try {
+    const data = await promise;
+    return [data, undefined];
+  }catch (error){
+    logError(error);
+    return [undefined, error];
+  }
+}
+
 main()
