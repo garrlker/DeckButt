@@ -32,6 +32,9 @@ function checkDeckProgress() {
     </p>
   </div>
   <div class="mx-auto min-w-max min-h-min">
+    <h1 class="sr-only">
+      Check Steam Deck Order
+    </h1>
     <div
       class="flex relative bottom-16 flex-col place-items-center p-6 mx-auto  w-3/4 bg-gray-100 rounded-lg shadow-md lg:flex-row lg:p-6 "
     >
