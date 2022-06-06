@@ -8,6 +8,7 @@ import {
 import updateBranch from './git.js'
 import openSpreadsheetAndProcessData from './sheet.js'
 import fetchCurrentOrderTracking from './site.js'
+import { handlePromise } from './shared.js'
 
 const debug = createDebug('synctool:main')
 const logError = createDebug('synctool:main:error')
@@ -68,17 +69,6 @@ async function main() {
 
   // Catch-all
   setTimeout(main, waitTime)
-}
-
-// Ty Fireship.io!
-async function handlePromise(promise){
-  try {
-    const data = await promise;
-    return [data, undefined];
-  }catch (error){
-    logError(error);
-    return [undefined, error];
-  }
 }
 
 main()
