@@ -1,6 +1,8 @@
 import simpleGit from 'simple-git'
 import dotenv from 'dotenv'
 import createDebug from 'debug'
+import { handlePromise } from './shared.js'
+
 dotenv.config()
 
 const debug = createDebug('synctool:git')
@@ -22,6 +24,15 @@ async function updateBranch() {
     return
   }
   await git.pull()
+  const [_, gitPullError] = await handlePromise(git.pull());
+
+  if(gitPullError){
+    logError(gitPullError)
+    logError("Retrying git push")
+    setTimeout(update, 1000) // Try again in 1 second
+    return;
+  }
+
   await git.add('./*')
   await git.commit(
     `Sync up ordertracking file with google sheets on ${Date.now()}`,
