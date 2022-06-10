@@ -1,5 +1,8 @@
 import fs from 'fs-extra'
 import createDebug from 'debug'
+import { handlePromise } from './shared.js'
+
+
 const pathToOrderTracking = new URL(
   '../public/ordertracking.json',
   import.meta.url,
@@ -13,22 +16,22 @@ const debug = createDebug('synctool:file')
 const logError = createDebug('synctool:file:error')
 
 async function getOrderTracking() {
-  try {
-    return await fs.readJson(pathToOrderTracking)
-  }
-  catch (err) {
-    logError(err)
-  }
+  const [orderTrackingJson, err] = await handlePromise(fs.readJson(pathToOrderTracking));
+
+  if(err)
+    throw err;
+
+  return orderTrackingJson;
 }
+
 async function updateOrderTracking(orderTracking) {
-  try {
-    debug('Updating ordertracking.json')
-    await fs.writeJson(pathToOrderTracking, orderTracking)
-    debug('Success!')
-  }
-  catch (err) {
-    logError(err)
-  }
+  debug('Updating ordertracking.json')
+  const [_, err] = await handlePromise(fs.writeJson(pathToOrderTracking, orderTracking));
+
+  if(err)
+    throw err;
+
+  debug('Success!')
 }
 async function updateOrderHistory(newOrder) {
   try {
