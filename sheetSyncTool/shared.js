@@ -4,7 +4,6 @@ export async function handlePromise(promise){
     const data = await promise;
     return [data, undefined];
   }catch (error){
-    logError(error);
     return [undefined, error];
   }
 }
