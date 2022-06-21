@@ -10,13 +10,14 @@ const logError = createDebug('synctool:git:error')
 
 const GIT_ENABLED = process.env.ENABLE_GIT === 'true'
 
-const git = simpleGit()
 
 async function updateBranch() {
   if (!GIT_ENABLED) {
     debug('GIT DISABLED')
     return
   }
+
+  let git = simpleGit()
 
   const status = await git.status()
   if (status.current !== 'task-update-ordertracking') {
